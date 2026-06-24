@@ -1015,7 +1015,7 @@
                         setTimeout(() => {
                             // Ganti source gambar
                             currentIndex = (currentIndex + 1) % images.length;
-                            imgElement.src = `/storage/${images[currentIndex]}`;
+                            imgElement.src = images[currentIndex];
 
                             imgElement.classList.remove('fade-out-only');
                         }, 500); // Harus sama dengan durasi transition di CSS
