@@ -62,11 +62,11 @@ Route::get('/camp/{program}/daftar', [PendaftranCampController::class, 'showForm
 Route::post('/camp/{program}/daftar', [PendaftranCampController::class, 'store'])->name('camp.pendaftaran.store');
 
 // Halaman pilih kamar berdasarkan trx_id
-Route::get('/camp/room/{trx_id}', [PendaftranCampController::class, 'halamanKamar'])->name('camp.room');
+Route::get('/camp/room/{trx_id}', [PendaftranCampController::class, 'halamanKamar'])->name('camp.room.pilih');
 
 Route::post('/camp/proses-kamar', [PendaftranCampController::class, 'proseskamaruser'])->name('camp.proseskamaruser');
 Route::get('/camp/pembayaran/{trx_id}', [PendaftranCampController::class, 'halamanPembayaran'])->name('camp.pembayaran');
-Route::post('/pembayaran/upload', [PendaftranCampController::class, 'uploadBukti'])->name('payment.upload');
+Route::post('/pembayaran/upload', [PendaftranCampController::class, 'uploadBukti'])->name('camp.payment.upload');
 
 
 
@@ -263,7 +263,7 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     //sosmed
     Route::resource('sosmed', SosmedController::class);
 
-    Route::put('/admin/pendaftaran/camp/update-status/{id}', [PendaftaranProgramCampController::class, 'updateStatus'])->name('pendaftaran.camp.update');
+    Route::put('/admin/pendaftaran/camp/update-status/{id}', [PendaftaranProgramCampController::class, 'updateStatus'])->name('pendaftaran.camp.update-status');
 
 
     // Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');
