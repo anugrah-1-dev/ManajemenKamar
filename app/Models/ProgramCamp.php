@@ -45,7 +45,7 @@ class ProgramCamp extends Model
             if (Str::startsWith($thumbnail, 'storage/')) {
                 return asset($thumbnail);
             }
-            $filename = basename($thumbnail);
+            $filename = strtolower(basename($thumbnail));
             if (
                 file_exists(public_path('camp/' . $filename)) ||
                 (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/camp/' . $filename)) ||
@@ -67,7 +67,7 @@ class ProgramCamp extends Model
             if (Str::startsWith($path, 'storage/')) {
                 return asset($path);
             }
-            $filename = basename($path);
+            $filename = strtolower(basename($path));
             if (
                 file_exists(public_path('camp/' . $filename)) ||
                 (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/camp/' . $filename)) ||
