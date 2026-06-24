@@ -29,8 +29,9 @@ class GalleryImage extends Model
         if (\Illuminate\Support\Str::startsWith($path, 'storage/')) {
             return asset($path);
         }
-        if (file_exists(public_path('camp/' . $path))) {
-            return asset('camp/' . $path);
+        $filename = basename($path);
+        if (file_exists(public_path('camp/' . $filename))) {
+            return asset('camp/' . $filename);
         }
         return asset('storage/' . $path);
     }

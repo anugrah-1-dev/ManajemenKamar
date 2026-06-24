@@ -7,7 +7,7 @@
     <title>BIEPLUS Kampung Inggris Pare</title>
 
     <link rel="stylesheet" href="{{ asset('css/landingpage.css') }}">
-    <script src="{{ asset('js/landingpage.js') }}"></script>
+    <script src="{{ asset('js/landingpage.js') }}?v={{ time() }}"></script>
     <script src="{{ asset('js/gallery.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">

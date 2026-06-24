@@ -30,11 +30,12 @@ class Sosmed extends Model
         if (\Illuminate\Support\Str::startsWith($path, 'storage/')) {
             return asset($path);
         }
-        if (file_exists(public_path('camp/' . $path))) {
-            return asset('camp/' . $path);
+        $filename = basename($path);
+        if (file_exists(public_path('camp/' . $filename))) {
+            return asset('camp/' . $filename);
         }
-        if (file_exists(public_path('asset/img/' . $path))) {
-            return asset('asset/img/' . $path);
+        if (file_exists(public_path('asset/img/' . $filename))) {
+            return asset('asset/img/' . $filename);
         }
 
         return asset('storage/' . $path);
