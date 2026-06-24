@@ -1,7 +1,7 @@
 // --- Kode Carousel ---
-let currentSlide = 0;
-let slides = [];
-let totalSlides = 0;
+var currentSlide = 0;
+var slides = [];
+var totalSlides = 0;
 
 function showSlide(index) {
     slides.forEach((slide, i) => {

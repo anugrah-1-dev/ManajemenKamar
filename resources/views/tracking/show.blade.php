@@ -56,14 +56,16 @@
                         let index = 0;
                         let section = document.getElementById("tracking-section");
 
-                        // Set awal
-                        section.style.backgroundImage = `url('${images[index]}')`;
-
-                        // Ganti tiap 5 detik
-                        setInterval(() => {
-                            index = (index + 1) % images.length;
+                        if (section) {
+                            // Set awal
                             section.style.backgroundImage = `url('${images[index]}')`;
-                        }, 5000);
+
+                            // Ganti tiap 5 detik
+                            setInterval(() => {
+                                index = (index + 1) % images.length;
+                                section.style.backgroundImage = `url('${images[index]}')`;
+                            }, 5000);
+                        }
                     });
                 </script>
 

@@ -20,4 +20,18 @@ class GalleryImage extends Model
     {
         return $this->belongsTo(Gallery::class);
     }
+
+    // Accessor untuk mendapatkan URL gambar yang benar
+    public function getImageUrlAttribute()
+    {
+        $path = $this->image_path;
+        
+        if (\Illuminate\Support\Str::startsWith($path, 'storage/')) {
+            return asset($path);
+        }
+        if (file_exists(public_path('camp/' . $path))) {
+            return asset('camp/' . $path);
+        }
+        return asset('storage/' . $path);
+    }
 }

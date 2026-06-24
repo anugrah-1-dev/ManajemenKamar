@@ -45,6 +45,9 @@ class ProgramCamp extends Model
             if (Str::startsWith($thumbnail, 'storage/')) {
                 return asset($thumbnail);
             }
+            if (file_exists(public_path('camp/' . $thumbnail))) {
+                return asset('camp/' . $thumbnail);
+            }
             return asset('storage/upload/camp/' . $thumbnail);
         }
 
@@ -58,6 +61,9 @@ class ProgramCamp extends Model
             $path = $thumb->image;
             if (Str::startsWith($path, 'storage/')) {
                 return asset($path);
+            }
+            if (file_exists(public_path('camp/' . $path))) {
+                return asset('camp/' . $path);
             }
             return asset('storage/upload/camp/' . $path);
         });

@@ -909,7 +909,7 @@
                                     {{-- Setiap frame galeri diberi animasi fade-up dengan delay --}}
                                     <div class="gallery-frame text-center" data-index="{{ $index }}"
                                         data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                                        <img src="{{ asset('storage/' . $gallery->images->first()->image_path) }}"
+                                        <img src="{{ $gallery->images->first()->image_url }}"
                                             alt="{{ $gallery->title }}" class="gallery-thumbnail"
                                             onclick="openGalleryModal({{ $gallery->id }})">
 
@@ -929,7 +929,7 @@
                                                     onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
                                                 <div class="modal-slider" id="slider-{{ $gallery->id }}">
                                                     @foreach ($gallery->images as $image)
-                                                        <img src="{{ asset('storage/' . $image->image_path) }}"
+                                                        <img src="{{ $image->image_url }}"
                                                             alt="Image">
                                                     @endforeach
                                                 </div>
@@ -991,7 +991,7 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const galleries = @json($galleries->map(fn($g) => $g->images->pluck('image_path')));
+                const galleries = @json($galleries->map(fn($g) => $g->images->pluck('image_url')));
 
                 galleries.forEach((images, galleryIndex) => {
                     if (images.length <= 1) return; // skip kalau cuma 1 gambar
@@ -1066,7 +1066,7 @@
                                                 @elseif (strtolower($platform) === 'instagram')
                                                     <a href="{{ $item->url }}" target="_blank"
                                                         rel="noopener noreferrer">
-                                                        <img src="{{ asset('storage/' . $item->image_path) }}"
+                                                        <img src="{{ $item->thumbnail_url }}"
                                                             alt="Instagram Image">
                                                     </a>
                                                 @endif

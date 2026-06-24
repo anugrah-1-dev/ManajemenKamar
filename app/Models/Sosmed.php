@@ -22,10 +22,21 @@ class Sosmed extends Model
 
     public function getThumbnailUrlAttribute()
     {
-        if (strtolower($this->platform) === 'youtube') {
+        if (isset($this->platform) && strtolower($this->platform) === 'youtube') {
             return 'https://img.youtube.com/vi/' . $this->youtube_id . '/hqdefault.jpg';
         }
 
-        return asset('storage/' . $this->image_path);
+        $path = $this->image_path;
+        if (\Illuminate\Support\Str::startsWith($path, 'storage/')) {
+            return asset($path);
+        }
+        if (file_exists(public_path('camp/' . $path))) {
+            return asset('camp/' . $path);
+        }
+        if (file_exists(public_path('asset/img/' . $path))) {
+            return asset('asset/img/' . $path);
+        }
+
+        return asset('storage/' . $path);
     }
 }
