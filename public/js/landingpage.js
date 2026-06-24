@@ -80,16 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// Scroll ke atas saat logo diklik (redundan tapi aman kalau mau dibiarkan)
-const logo = document.querySelector("#navbar .logo");
-if (logo) {
-    logo.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    });
-}
+
 
 function toggleNavbar() {
     const navLinks = document.getElementById("navLinks");

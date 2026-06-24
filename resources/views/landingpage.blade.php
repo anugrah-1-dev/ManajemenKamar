@@ -97,14 +97,20 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            if (!sessionStorage.getItem("pamfletShown")) {
-                document.getElementById("pamflet-popup").style.display = "flex";
-            }
+            const pamfletPopup = document.getElementById("pamflet-popup");
+            if (pamfletPopup) {
+                if (!sessionStorage.getItem("pamfletShown")) {
+                    pamfletPopup.style.display = "flex";
+                }
 
-            document.getElementById("closePamflet").addEventListener("click", function() {
-                document.getElementById("pamflet-popup").style.display = "none";
-                sessionStorage.setItem("pamfletShown", "true");
-            });
+                const closeBtn = document.getElementById("closePamflet");
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", function() {
+                        pamfletPopup.style.display = "none";
+                        sessionStorage.setItem("pamfletShown", "true");
+                    });
+                }
+            }
         });
     </script>
 
@@ -621,9 +627,9 @@
                 });
 
                 if (visibleCount === 0) {
-                    noProgramMessage.style.display = 'block';
+                    if (noProgramMessage) noProgramMessage.style.display = 'block';
                 } else {
-                    noProgramMessage.style.display = 'none';
+                    if (noProgramMessage) noProgramMessage.style.display = 'none';
                 }
             }
 
@@ -910,6 +916,7 @@
                                     <div class="gallery-frame text-center" data-index="{{ $index }}"
                                         data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                                         <img src="{{ $gallery->images->first()->image_url }}"
+                                            onerror="this.onerror=null; this.src='{{ asset('images/placeholder.jpg') }}';"
                                             alt="{{ $gallery->title }}" class="gallery-thumbnail"
                                             onclick="openGalleryModal({{ $gallery->id }})">
 
@@ -929,8 +936,7 @@
                                                     onclick="slideGallery({{ $gallery->id }}, -1)">&#8592;</button>
                                                 <div class="modal-slider" id="slider-{{ $gallery->id }}">
                                                     @foreach ($gallery->images as $image)
-                                                        <img src="{{ $image->image_url }}"
-                                                            alt="Image">
+                                                        <img src="{{ $image->image_url }}" onerror="this.onerror=null; this.src='{{ asset('images/placeholder.jpg') }}';" alt="Image">
                                                     @endforeach
                                                 </div>
                                                 <button class="nav-btn right"
@@ -1066,8 +1072,7 @@
                                                 @elseif (strtolower($platform) === 'instagram')
                                                     <a href="{{ $item->url }}" target="_blank"
                                                         rel="noopener noreferrer">
-                                                        <img src="{{ $item->thumbnail_url }}"
-                                                            alt="Instagram Image">
+                                                        <img src="{{ $item->thumbnail_url }}" onerror="this.onerror=null; this.src='{{ asset('images/placeholder.jpg') }}';" alt="Instagram Image">
                                                     </a>
                                                 @endif
                                             </div>

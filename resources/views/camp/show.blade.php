@@ -147,7 +147,7 @@
                                     <div class="d-flex gap-3 justify-content-center flex-wrap">
                                         @foreach ($group as $url)
                                             <div class="thumb-wrapper">
-                                                <img src="{{ $url }}" class="img-fluid thumb-img" alt="thumbnail">
+                                                <img src="{{ $url }}" class="img-fluid thumb-img" onerror="this.onerror=null; this.src='{{ asset('images/placeholder.jpg') }}';" alt="thumbnail">
                                             </div>
                                         @endforeach
                                     </div>
@@ -229,7 +229,7 @@
                         }
                     </style>
                 @else
-                    <img src="{{ $program->thumbnail_url }}" class="img-fluid w-100 card-img-top" alt="{{ $program->nama }}"
+                    <img src="{{ $program->thumbnail_url }}" class="img-fluid w-100 card-img-top" onerror="this.onerror=null; this.src='{{ asset('images/placeholder.jpg') }}';" alt="{{ $program->nama }}"
                         style="object-fit: cover; height: 350px;" loading="lazy">
                 @endif
             </div>
