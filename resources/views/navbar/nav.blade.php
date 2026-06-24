@@ -4,7 +4,7 @@
     const logo1URL = "{{ asset('asset/img/bietest.png') }}";
     const logo2URL = "{{ asset('asset/img/bietest.png') }}";
 </script>
-<script src="{{ asset('js/landingpage.js') }}"></script>
+<script src="{{ asset('js/landingpage.js') }}?v={{ time() }}"></script>
 <!-- Navbar css-->
 <link rel="stylesheet" href="{{ asset('css/nvbr.css') }}">
 

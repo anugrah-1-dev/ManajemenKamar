@@ -46,7 +46,11 @@ class ProgramCamp extends Model
                 return asset($thumbnail);
             }
             $filename = basename($thumbnail);
-            if (file_exists(public_path('camp/' . $filename))) {
+            if (
+                file_exists(public_path('camp/' . $filename)) ||
+                (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/camp/' . $filename)) ||
+                file_exists(base_path('public_html/camp/' . $filename))
+            ) {
                 return asset('camp/' . $filename);
             }
             return asset('storage/upload/camp/' . $thumbnail);
@@ -64,7 +68,11 @@ class ProgramCamp extends Model
                 return asset($path);
             }
             $filename = basename($path);
-            if (file_exists(public_path('camp/' . $filename))) {
+            if (
+                file_exists(public_path('camp/' . $filename)) ||
+                (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/camp/' . $filename)) ||
+                file_exists(base_path('public_html/camp/' . $filename))
+            ) {
                 return asset('camp/' . $filename);
             }
             return asset('storage/upload/camp/' . $path);

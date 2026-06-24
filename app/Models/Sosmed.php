@@ -31,10 +31,18 @@ class Sosmed extends Model
             return asset($path);
         }
         $filename = basename($path);
-        if (file_exists(public_path('camp/' . $filename))) {
+        if (
+            file_exists(public_path('camp/' . $filename)) ||
+            (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/camp/' . $filename)) ||
+            file_exists(base_path('public_html/camp/' . $filename))
+        ) {
             return asset('camp/' . $filename);
         }
-        if (file_exists(public_path('asset/img/' . $filename))) {
+        if (
+            file_exists(public_path('asset/img/' . $filename)) ||
+            (isset($_SERVER['DOCUMENT_ROOT']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/asset/img/' . $filename)) ||
+            file_exists(base_path('public_html/asset/img/' . $filename))
+        ) {
             return asset('asset/img/' . $filename);
         }
 
