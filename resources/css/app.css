@@ -1,0 +1,51 @@
+body {
+    background-color: #f5f7ff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.login-container .avatar {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.login-container h4 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2d3e50;
+}
+
+.form-control:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 0.2rem rgba(108, 99, 255, 0.25);
+}
+
+.btn-primary {
+    background-color: #6c63ff;
+    border-color: #6c63ff;
+}
+
+.btn-primary:hover {
+    background-color: #5850ec;
+    border-color: #5850ec;
+}
+
+.menu-spacer {
+    pointer-events: none;
+    background: transparent !important;
+    cursor: default;
+    height: 20px;
+}

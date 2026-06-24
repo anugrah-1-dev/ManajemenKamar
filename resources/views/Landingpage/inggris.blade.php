@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursus Bahasa Inggris</title>
+    <link rel="stylesheet" href="{{ asset('css/inggrislandingpage.css') }}">
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5.3 JS Bundle (termasuk Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    @include('navbar.nav')
+
+
+    <!-- Hero Carousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="slides">
+                <div class="slide active">
+                    <img src="{{ asset('asset/img/brilliant1.jpg') }}" alt="Belajar Bahasa Arab 1">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('asset/img/brilliant2.jpg') }}" alt="Belajar Bahasa Arab 2">
+                </div>
+                <div class="slide">
+                    <img src="{{ asset('asset/img/brilliant3.jpg') }}" alt="Belajar Bahasa Arab 3">
+                </div>
+            </div>
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+
+        <div class="hero-text">
+            <h1>BRILLIANT ENGLISH COURSE</h1>
+            <h2>(Kursus Bahasa Inggris)</h2>
+            <p>Kuasai bahasa Inggris dengan metode interaktif dan pengajar berpengalaman.</p>
+        </div>
+    </section>
+
+    <!-- PROGRAM SECTION WITH FILTERING -->
+    <section class="program-section bg-light py-5" id="program">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2>ENGLISH PROGRAM CHOICES</h2>
+                <p class="lead text-muted">Find the program that best suits your goals.</p>
+            </div>
+
+            <div class="filter-buttons-wrapper text-center mb-4" data-aos="fade-up" data-aos-delay="100">
+                <button class="filter-btn active" data-filter="offline">Offline Programs</button>
+                <button class="filter-btn" data-filter="online">Online Programs</button>
+            </div>
+
+            <div class="program-grid">
+                <!-- Offline Programs -->
+                @forelse ($offlinePrograms as $index => $program)
+                    <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}"
+                        style="display: none;">
+                        <div class="program-card">
+                            <div class="program-card-image-wrapper">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
+                                @if ($program->is_active)
+                                    <span class="badge bg-success program-badge">Available</span>
+                                @endif
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
+                                {{-- <p class="card-text text-muted small mb-2">
+                                    <i class="fas fa-calendar-alt me-1"></i>
+                                    {{ \Carbon\Carbon::parse($program->jadwal_mulai)->format('M d') }} -
+                                    {{ \Carbon\Carbon::parse($program->jadwal_selesai)->format('M d, Y') }}
+                                </p> --}}
+
+                                <p class="card-text program-card-price mb-3">
+                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+                                {{-- Garis pemisah sebelum fitur --}}
+
+                                <hr class="my-3 mx-auto hr-half">
+
+                                <h5 class="text-center mb-4">Fasilitas Program</h5>
+
+                                @php
+                                    $features = $program->features_program;
+
+                                    if (is_string($features)) {
+                                        $decoded = json_decode($features, true);
+                                        $features =
+                                            json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                                ? $decoded
+                                                : preg_split('/\r\n|\r|\n/', $features);
+                                    }
+                                @endphp
+
+                                @if (!empty($features) && is_array($features))
+                                    <div class="text-center">
+                                        <ul class="list-unstyled d-inline-block text-start mb-0">
+                                            @foreach ($features as $fitur)
+                                                <li class="d-flex align-items-center mb-2">
+                                                    {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                                    <span class="ms-2">{{ trim($fitur) }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @else
+                                    <p class="text-center text-muted mb-0">
+                                        <em>Tidak ada fasilitas tersedia.</em>
+                                    </p>
+                                @endif
+                                <br>
+
+
+
+
+                                <a href="{{ route('public.program.offline.show', $program->slug) }}"
+                                    class="btn btn-primary mt-auto">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="program-item offline" style="display: none;">
+                        <p class="text-muted">No offline programs available</p>
+                    </div>
+                @endforelse
+
+                <!-- Online Programs -->
+                @forelse ($onlinePrograms as $index => $program)
+                    <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}"
+                        style="display: none;">
+                        <div class="program-card">
+                            <div class="program-card-image-wrapper">
+                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    alt="{{ $program->nama }}">
+                                @if ($program->is_active)
+                                    <span class="badge bg-success program-badge">Available</span>
+                                @endif
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title program-card-title">{{ $program->nama }}</h5>
+                                <p class="card-text text-muted small mb-2">
+                                    <i class="fas fa-tag me-1"></i>
+                                    Category: {{ $program->kategori ?? '-' }}
+                                </p>
+                                <p class="card-text program-card-price mb-3">
+                                    Rp {{ number_format($program->harga, 0, ',', '.') }}
+                                </p>
+
+
+                                <hr class="my-3 mx-auto hr-half">
+
+                                <h5 class="text-center mb-4">Fasilitas Program</h5>
+
+                                @php
+                                    $features = $program->features_program;
+
+                                    if (is_string($features)) {
+                                        $decoded = json_decode($features, true);
+                                        $features =
+                                            json_last_error() === JSON_ERROR_NONE && is_array($decoded)
+                                                ? $decoded
+                                                : preg_split('/\r\n|\r|\n/', $features);
+                                    }
+                                @endphp
+
+                                @if (!empty($features) && is_array($features))
+                                    <div class="text-center">
+                                        <ul class="list-unstyled d-inline-block text-start mb-0">
+                                            @foreach ($features as $fitur)
+                                                <li class="d-flex align-items-center mb-2">
+                                                    {!! \App\Helpers\FeatureHelper::getFeatureIcon($fitur) !!}
+                                                    <span class="ms-2">{{ trim($fitur) }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @else
+                                    <p class="text-center text-muted mb-0">
+                                        <em>Tidak ada fasilitas tersedia.</em>
+                                    </p>
+                                @endif
+                                <br>
+                                <a href="{{ route('public.program.online.show', $program->slug) }}"
+                                    class="btn btn-danger mt-auto">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                @empty
+                    <div class="program-item online" style="display: none;">
+                        <p class="text-muted">No online programs available</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    {{-- About Section --}}
+    <section class="about py-5" id="about">
+        <div class="container text-center" data-aos="fade-up">
+            <h2 class="mb-4">Why Choose Us?</h2>
+            <p class="mb-5">
+                At <strong>Brilliant English Course</strong>, we believe that learning Mandarin is an exciting
+                adventure. We combine the <span class="highlight">best teaching methods</span> with an interactive
+                approach to create an effective and unforgettable learning experience.
+            </p>
+            <div class="about-grid">
+                <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-wrapper"><i class="fas fa-rocket"></i></div>
+                    <h3>Structured Curriculum</h3>
+                    <p>Our lessons are designed according to international standards (HSK) to ensure measurable
+                        progress.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-wrapper"><i class="fas fa-user-tie"></i></div>
+                    <h3>Professional Instructors</h3>
+                    <p>Learn from experienced Laoshi, both certified native speakers and local professionals.</p>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-wrapper"><i class="fas fa-users"></i></div>
+                    <h3>Active Community</h3>
+                    <p>Join a supportive community to practice conversations and explore culture together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="alur-container">
+        <!-- Wave Divider at Top -->
+        <div class="wave-line">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 20" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#0b2470; stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#1d3fa3; stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Wave Path -->
+                <path class="wave-path" d="M0 10 Q 15 0 30 10 T 60 10 T 90 10 T 120 10 V 20 H 0 Z"
+                    fill="url(#waveGradient)" />
+            </svg>
+        </div>
+
+
+
+        <!-- Main Content -->
+        <div class="alur py-5" id="alur">
+            <div class="container text-center" data-aos="fade-up">
+                <h2 class="mb-4">Alur Pendaftaran</h2>
+                <p class="mb-5">Ikuti langkah-langkah berikut untuk mendaftar di Brilliant English Course.</p>
+                <div class="alur-timeline">
+                    <div class="step" data-aos="fade-up" data-aos-delay="50">
+                        <div class="circle">1</div>
+                        <h3>Isi Formulir</h3>
+                        <p>Lengkapi data diri Anda melalui formulir online.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="150">
+                        <div class="circle">2</div>
+                        <h3>Konfirmasi Tim</h3>
+                        <p>Tim kami akan menghubungi Anda untuk verifikasi data.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="250">
+                        <div class="circle">3</div>
+                        <h3>Pembayaran</h3>
+                        <p>Lakukan pembayaran sesuai instruksi yang diberikan.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="350">
+                        <div class="circle">4</div>
+                        <h3>Daftar Ulang</h3>
+                        <p>Kunjungi admin kami di kantor untuk daftar ulang.</p>
+                    </div>
+                    <div class="step" data-aos="fade-up" data-aos-delay="450">
+                        <div class="circle">5</div>
+                        <h3>Selamat Belajar!</h3>
+                        <p>Anda resmi menjadi bagian dari Brilliant English Course.</p>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <p>© 2025 Brilliant English Course | Programming Bahasa Inggris</p>
+    </footer>
+
+
+    <style>
+
+/* =========================================================
+   Global Styles & Variables
+   ========================================================= */
+:root {
+    --blue: #012169; /* UK blue */
+    --red: #ffc107;
+    --red-dark: #ffc107;
+    --bg: #f0f2f5;
+    --text: #333;
+    --muted: #555;
+    --light: #e0e0e0;
+    --white: #fff;
+    --footer-a: #0b2470;
+    --footer-b: #3c1361;
+    --radius-md: 12px;
+    --radius-lg: 14px;
+    --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 6px 18px rgba(0, 33, 105, 0.08);
+    --shadow-lg: 0 12px 26px rgba(0, 33, 105, 0.12);
+}
+
+/* General */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* =========================================================
+   Keyframes (single source of truth)
+   ========================================================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes waveMove {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* 📱 Mobile responsive */
+@media (max-width: 768px) {
+    .wave-divider {
+        height: 80px; /* lebih pendek di layar kecil */
+    }
+    .wave-line svg {
+        width: 180%; /* jangan terlalu melebar */
+        height: 100px; /* lebih kecil */
+    }
+}
+
+@media (max-width: 480px) {
+    .wave-divider {
+        height: 60px;
+    }
+    .wave-line svg {
+        width: 150%;
+        height: 80px;
+    }
+}
+
+/* =========================================================
+   Hero / Carousel
+   ========================================================= */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.carousel {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.slides {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    min-width: 100%;
+    height: 100%;
+    opacity: 0; 
+    pointer-events: none;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    filter: brightness(60%);
+    transition: transform 12s ease;
+}
+
+.slide.active img {
+    transform: scale(1.08);
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--white);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    opacity: 0;
+    z-index: 10;
+}
+.carousel:hover .prev,
+.carousel:hover .next {
+    opacity: 1;
+}
+.prev:hover,
+.next:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.15);
+}
+.prev {
+    left: 30px;
+}
+.next {
+    right: 30px;
+}
+
+/* Hero Text */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeIn 1.5s ease 0.8s forwards;
+    z-index: 5;
+}
+.hero-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    color: var(--white);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    animation: fadeIn 1s ease 1s forwards, slideUp 1s ease 1s forwards;
+}
+.hero-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--white);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+}
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-inline: auto;
+    opacity: 0;
+    animation: fadeIn 1s ease 2s forwards;
+}
+
+/* CTA */
+.cta-button {
+    background: var(--red);
+    color: var(--white);
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background 0.3s ease;
+}
+.cta-button:hover {
+    background: var(--red-dark);
+}
+
+/* =========================================================
+   About Section
+   ========================================================= */
+/* ==================== ANIMASI KEYFRAMES ==================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ==================== ABOUT SECTION ==================== */
+.about {
+    padding: 90px 20px;
+    background: var(--white);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.about .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.about h2 {
+    font-size: 2.7rem;
+    margin-bottom: 20px;
+    color: var(--blue);
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.about h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--red);
+    margin: 12px auto 0;
+    border-radius: 2px;
+    opacity: 0;
+    transform: scaleX(0);
+    transition: all 0.8s ease 0.3s;
+}
+
+.about p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+    max-width: 850px;
+    margin-inline: auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.4s;
+}
+
+.about .highlight {
+    color: var(--red);
+    font-weight: 700;
+    position: relative;
+}
+
+.about .highlight::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.8s ease 1s;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.about-card {
+    background: #fdfdff;
+    padding: 35px 25px;
+    border-radius: var(--radius-lg);
+    border-top: 4px solid var(--blue);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.about-card h3 {
+    font-size: 1.4rem;
+    color: var(--blue);
+    margin-bottom: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.about-card p {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 0;
+}
+
+.about-card .icon-wrapper {
+    font-size: 2rem;
+    color: #ffc107;
+    margin-bottom: 1rem;
+    transition: all 0.5s ease;
+}
+
+/* Hover effects */
+.about-card:hover .icon-wrapper {
+    color: var(--red);
+    animation: pulse 1s ease;
+}
+
+.about-card:hover h3 {
+    color: var(--red);
+}
+
+/* ==================== ANIMASI SAAT SCROLL ==================== */
+.about.visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about.visible h2::after {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.about.visible p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about.visible .highlight::after {
+    width: 100%;
+}
+
+.about.visible .about-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay untuk about cards */
+.about.visible .about-card:nth-child(1) {
+    transition-delay: 0.5s;
+}
+.about.visible .about-card:nth-child(2) {
+    transition-delay: 0.7s;
+}
+.about.visible .about-card:nth-child(3) {
+    transition-delay: 0.9s;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .about h2 {
+        font-size: 2.2rem;
+    }
+
+    .about p {
+        font-size: 1rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-card {
+        padding: 25px 20px;
+    }
+}
+
+/* Awal, sebelum muncul */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease-out;
+}
+
+/* Ketika muncul di viewport */
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.alur {
+    background: #1d3fa3;
+    position: relative;
+    color: white;
+    padding: 80px 20px;
+    overflow: hidden;
+}
+
+.alur .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.alur h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--white);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.alur p {
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    color: var(--light);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.2s;
+}
+
+/* Garis penghubung timeline */
+.alur-timeline::before {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 0;
+}
+
+.alur-timeline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+}
+
+.step {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+    margin: 0 10px;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+}
+
+.circle {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 3px solid var(--white);
+    transition: all 0.5s ease;
+}
+
+.step h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--white);
+    transition: all 0.5s ease 0.1s;
+}
+
+.step p {
+    font-size: 0.9rem;
+    color: var(--light);
+    line-height: 1.5;
+    transition: all 0.5s ease 0.2s;
+}
+
+/* Hover effects */
+.step:hover .circle {
+    background: #1d3fa3;
+    transform: scale(1.1) rotate(5deg);
+    animation: pulse 1s ease infinite;
+}
+
+.step:hover h3 {
+    color: #ffc107;
+}
+
+.step:hover p {
+    color: #ffffff;
+}
+
+/* ==================== ANIMASI SAAT SCROLL ==================== */
+.alur.visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.alur.visible p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.alur.visible .step {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay untuk steps */
+.alur.visible .step:nth-child(1) {
+    transition-delay: 0.3s;
+}
+.alur.visible .step:nth-child(2) {
+    transition-delay: 0.4s;
+}
+.alur.visible .step:nth-child(3) {
+    transition-delay: 0.5s;
+}
+.alur.visible .step:nth-child(4) {
+    transition-delay: 0.6s;
+}
+.alur.visible .step:nth-child(5) {
+    transition-delay: 0.7s;
+}
+.alur.visible .step:nth-child(6) {
+    transition-delay: 0.8s;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .alur-timeline::before {
+        display: none;
+    }
+
+    .alur-timeline {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step {
+        margin-bottom: 30px;
+        max-width: 100%;
+    }
+}
+
+/* Wave Divider / Line */
+.wave-divider {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: var(--white);
+    margin: -1px 0;
+}
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.wave-divider .shape-fill {
+    fill: var(--blue);
+}
+
+.wave-line {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+.wave-line svg {
+    display: block;
+    width: 250%;
+    height: 180px;
+    animation: waveMove 6s linear infinite;
+}
+
+/* =========================================================
+   Program Section
+   ========================================================= */
+.program-section {
+    background: var(--bg);
+    padding: 60px 20px;
+    text-align: center;
+}
+.section-title,
+.section-subtitle,
+.filter-buttons-wrapper,
+.filter-btn,
+.program-item {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 10px;
+    transition: all 0.8s ease;
+}
+.section-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: var(--text);
+    transition: all 0.8s ease 0.2s;
+}
+
+.filter-buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    transition: all 0.8s ease 0.4s;
+}
+.filter-btn {
+    padding: 8px 20px;
+    margin: 0 0.5rem;
+    border: 2px solid var(--blue);
+    background: var(--white);
+    color: var(--blue);
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.filter-btn:hover:not(.active) {
+    background: #f8f9fa;
+}
+.filter-btn.active {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+.program-item {
+    transition: all 0.8s ease;
+    transform: translateY(50px);
+}
+
+/* Card */
+.program-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+}
+.program-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 33, 105, 0.15);
+}
+.program-card-image-wrapper {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+.program-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.program-card:hover .program-card-img {
+    transform: scale(1.05);
+}
+.program-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+}
+.card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+.program-card-title {
+    color: var(--blue);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.program-card p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    padding-bottom: 0.5rem;
+}
+.program-card-price {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.program-btn {
+    display: inline-block;
+    margin: 10px 0 20px;
+    padding: 8px 16px;
+    background: var(--red);
+    color: var(--white);
+    font-weight: 700;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+.program-btn:hover {
+    background: var(--red-dark);
+    transform: translateY(-2px);
+}
+
+/* Scroll-in Animations */
+.program-section.visible .section-title,
+.program-section.visible .section-subtitle,
+.program-section.visible .filter-buttons-wrapper,
+.program-section.visible .filter-btn,
+.program-section.visible .program-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delays */
+.program-section.visible .filter-btn:nth-child(1) {
+    transition-delay: 0.5s;
+}
+.program-section.visible .filter-btn:nth-child(2) {
+    transition-delay: 0.6s;
+}
+
+.program-section.visible .program-item:nth-child(1) {
+    transition-delay: 0.3s;
+}
+.program-section.visible .program-item:nth-child(2) {
+    transition-delay: 0.4s;
+}
+.program-section.visible .program-item:nth-child(3) {
+    transition-delay: 0.5s;
+}
+.program-section.visible .program-item:nth-child(4) {
+    transition-delay: 0.6s;
+}
+.program-section.visible .program-item:nth-child(5) {
+    transition-delay: 0.7s;
+}
+.program-section.visible .program-item:nth-child(6) {
+    transition-delay: 0.8s;
+}
+.program-section.visible .program-item:nth-child(7) {
+    transition-delay: 0.9s;
+}
+.program-section.visible .program-item:nth-child(8) {
+    transition-delay: 1s;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.footer {
+    background: linear-gradient(105deg, var(--footer-a), var(--footer-b));
+    color: #f1f1f1;
+    font-size: 12px;
+    font-weight: 100;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: -1px;
+}
+
+/* =========================================================
+   Utility / Overrides (Bootstrap-like buttons)
+   ========================================================= */
+.btn-primary {
+    background: var(--blue);
+    border-color: var(--blue);
+}
+.btn-danger {
+    background: var(--red);
+    border-color: var(--red);
+}
+.btn-primary:hover {
+    background: #00114d;
+    border-color: #00114d;
+}
+.btn-danger:hover {
+    background: #a50e26;
+    border-color: #a50e26;
+}
+
+/* =========================================================
+   Responsiveness
+   ========================================================= */
+@media (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 2.4rem;
+    }
+    .hero-text h2 {
+        font-size: 1.4rem;
+    }
+    .circle {
+        width: 56px;
+        height: 56px;
+        font-size: 1.2rem;
+    }
+    .alur-timeline::before {
+        top: 28px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+.footer {
+    background: linear-gradient(105deg, #0b2470, #3c1361);
+    /* coklat tua → coklat sedang → coklat pasir */
+    color: #f1f1f1;
+    font-size: 12px;
+    font-weight: 100;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: -1px;
+}
+
+/* About Section */
+.about {
+    background: #ffff;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.about-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-card .icon-wrapper {
+    font-size: 2rem;
+    color: #ffc107;
+    margin-bottom: 1rem;
+}
+
+.about .highlight {
+    color: #012169;
+    font-weight: bold;
+}
+
+/* Filter Button Styles */
+.filter-buttons-wrapper {
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.5rem;
+    margin: 0 0.5rem;
+    border: 2px solid #012169;
+    background-color: white;
+    color: #012169;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+    background-color: #012169;
+    color: white;
+}
+
+.filter-btn:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+/* Program Grid Layout */
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+/* Program Card Styles with UK Flag Colors */
+.program-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid #e0e0e0;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.program-card-image-wrapper {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.program-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.program-card:hover .program-card-img {
+    transform: scale(1.05);
+}
+
+.program-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.program-card-title {
+    color: #012169;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.program-card-price {
+    color: #c8102e;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Button Colors */
+.btn-primary {
+    background-color: #012169;
+    border-color: #012169;
+}
+
+.btn-danger {
+    background-color: #c8102e;
+    border-color: #c8102e;
+}
+
+.btn-primary:hover {
+    background-color: #00114d;
+    border-color: #00114d;
+}
+
+.btn-danger:hover {
+    background-color: #a50e26;
+    border-color: #a50e26;
+}
+
+.hr-half {
+    width: 50%; /* setengah */
+    border: 0; /* hapus border default */
+    border-top: 2px solid #ccc; /* garis custom */
+}
+
+
+
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const programItems = document.querySelectorAll('.program-item');
+
+            // Show offline programs by default
+            document.querySelector('.filter-btn[data-filter="offline"]').classList.add('active');
+            document.querySelectorAll('.program-item.offline').forEach(item => {
+                item.style.display = 'block';
+            });
+
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filterValue = this.getAttribute('data-filter');
+
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Show/hide programs
+                    programItems.forEach(item => {
+                        if (item.classList.contains(filterValue)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+
+        // Function untuk mendeteksi elemen yang terlihat di viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                rect.bottom >= 0
+            );
+        }
+
+        // Function untuk menangani scroll animation
+        function handleScrollAnimation() {
+            const programSection = document.querySelector('.program-section');
+
+            if (programSection && isInViewport(programSection)) {
+                programSection.classList.add('visible');
+                // Hapus event listener setelah animasi dipicu sekali
+                window.removeEventListener('scroll', handleScrollAnimation);
+            }
+        }
+
+        // Event listener untuk scroll dan load
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+
+        // Function untuk mendeteksi elemen yang terlihat di viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                rect.bottom >= 0
+            );
+        }
+
+        // Function untuk menangani scroll animation timeline
+        function handleTimelineAnimation() {
+            const alurSection = document.querySelector('.alur');
+
+            if (alurSection && isInViewport(alurSection)) {
+                alurSection.classList.add('visible');
+                // Hapus event listener setelah animasi dipicu sekali
+                window.removeEventListener('scroll', handleTimelineAnimation);
+            }
+        }
+
+        // Event listener untuk scroll dan load
+        window.addEventListener('scroll', handleTimelineAnimation);
+        window.addEventListener('load', handleTimelineAnimation);
+
+        // Function untuk mendeteksi elemen yang terlihat di viewport
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+        rect.bottom >= 0
+    );
+}
+
+// Function untuk menangani scroll animation about section
+function handleAboutAnimation() {
+    const aboutSection = document.querySelector('.about');
+
+    if (aboutSection && isInViewport(aboutSection)) {
+        aboutSection.classList.add('visible');
+        // Hapus event listener setelah animasi dipicu sekali
+        window.removeEventListener('scroll', handleAboutAnimation);
+    }
+}
+
+// Event listener untuk scroll dan load
+window.addEventListener('scroll', handleAboutAnimation);
+window.addEventListener('load', handleAboutAnimation);  
+    </script>
+</body>
+
+</html>
