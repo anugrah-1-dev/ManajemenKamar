@@ -42,14 +42,15 @@ class ProgramCamp extends Model
         $thumbnail = $this->thumbnails->first()->image ?? null;
 
         if ($thumbnail) {
-            if (Str::startsWith($thumbnail, 'storage/')) {
-                return asset($thumbnail);
-            }
             $filename = strtolower(basename($thumbnail));
             $staticFiles = ['ac.jpg', 'barack-beddings.jpeg', 'foto-beddings.jpg', 'foto-beddingss.jpg', 'foto-kloset.jpg', 'lemari.jpg', 'shower-.jpeg', 'shower.jpeg', 'tampak-depan.jpg', 'vip-toilet.jpeg', 'water-heater.jpeg'];
             
             if (in_array($filename, $staticFiles)) {
                 return asset('camp/' . $filename);
+            }
+
+            if (Str::startsWith($thumbnail, 'storage/')) {
+                return asset($thumbnail);
             }
 
             if (
@@ -70,14 +71,16 @@ class ProgramCamp extends Model
     {
         return $this->thumbnails->map(function ($thumb) {
             $path = $thumb->image;
-            if (Str::startsWith($path, 'storage/')) {
-                return asset($path);
-            }
+            
             $filename = strtolower(basename($path));
             $staticFiles = ['ac.jpg', 'barack-beddings.jpeg', 'foto-beddings.jpg', 'foto-beddingss.jpg', 'foto-kloset.jpg', 'lemari.jpg', 'shower-.jpeg', 'shower.jpeg', 'tampak-depan.jpg', 'vip-toilet.jpeg', 'water-heater.jpeg'];
             
             if (in_array($filename, $staticFiles)) {
                 return asset('camp/' . $filename);
+            }
+
+            if (Str::startsWith($path, 'storage/')) {
+                return asset($path);
             }
 
             if (

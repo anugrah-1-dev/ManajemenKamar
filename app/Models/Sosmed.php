@@ -27,14 +27,15 @@ class Sosmed extends Model
         }
 
         $path = $this->image_path;
-        if (\Illuminate\Support\Str::startsWith($path, 'storage/')) {
-            return asset($path);
-        }
         $filename = strtolower(basename($path));
         $staticFiles = ['ac.jpg', 'barack-beddings.jpeg', 'foto-beddings.jpg', 'foto-beddingss.jpg', 'foto-kloset.jpg', 'lemari.jpg', 'shower-.jpeg', 'shower.jpeg', 'tampak-depan.jpg', 'vip-toilet.jpeg', 'water-heater.jpeg'];
         
         if (in_array($filename, $staticFiles)) {
             return asset('camp/' . $filename);
+        }
+
+        if (\Illuminate\Support\Str::startsWith($path, 'storage/')) {
+            return asset($path);
         }
 
         if (
