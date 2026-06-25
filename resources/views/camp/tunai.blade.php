@@ -166,8 +166,14 @@
                                 <div class="mt-4 text-center">
                                     {{-- PERUBAHAN: Mengambil nomor dari koleksi $contactServices --}}
                                     @php
-                                        // Ambil kontak pertama dari koleksi, atau gunakan nomor cadangan jika tidak ada
-                                        $waNumber = $contactServices->isNotEmpty() ? $contactServices->first()->nomor : '6281234567890';
+                                        $rawNumber = $contactServices->isNotEmpty() ? $contactServices->first()->nomor : '6281234567890';
+                                        
+                                        // Bersihkan karakter selain angka
+                                        $waNumber = preg_replace('/\D/', '', $rawNumber);
+                                        // Jika diawali 0, ganti dengan 62
+                                        if (substr($waNumber, 0, 1) === '0') {
+                                            $waNumber = '62' . substr($waNumber, 1);
+                                        }
                                     @endphp
                                     <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode($waText) }}" class="btn btn-success mb-2" target="_blank"><i class="bi bi-whatsapp"></i> Konfirmasi via WhatsApp</a>
                                     <a href="{{ url('/') }}" class="btn btn-outline-secondary mb-2"><i class="bi bi-house-door-fill"></i> Kembali ke Beranda</a>
