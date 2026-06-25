@@ -47,11 +47,11 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_date">Dari Tanggal</label>
-                            <input type="date" name="start_date" class="form-control" required>
+                            <input type="date" id="start_date" name="start_date" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="end_date">Sampai Tanggal</label>
-                            <input type="date" name="end_date" class="form-control" required>
+                            <input type="date" id="end_date" name="end_date" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -141,16 +141,16 @@
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <!-- Edit Status Button -->
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#statusModal{{ $data->id }}" title="Edit Status"
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#statusModal{{ $data->id }}" title="Edit Status"
                                             style="width: 38px; height: 38px;">
                                             <i class="fas fa-eye"></i>
                                         </button>
 
                                         <!-- Status Update Modal -->
                                         <div class="modal fade" id="statusModal{{ $data->id }}" tabindex="-1"
-                                            aria-labelledby="statusModalLabel{{ $data->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
+                                            role="dialog" aria-labelledby="statusModalLabel{{ $data->id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
                                                 <form method="POST"
                                                     action="{{ route('admin.pendaftaran.camp.update', $data->id) }}">
                                                     @csrf
@@ -160,13 +160,15 @@
                                                             <h5 class="modal-title"
                                                                 id="statusModalLabel{{ $data->id }}">Ubah Status
                                                                 Pendaftaran</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="status">Status</label>
-                                                                <select name="status" class="form-control" required>
+                                                                <label for="status_{{ $data->id }}">Status</label>
+                                                                <select name="status" id="status_{{ $data->id }}" class="form-control" required>
                                                                     <option value="pending"
                                                                         {{ $data->status == 'pending' ? 'selected' : '' }}>
                                                                         Pending</option>
@@ -181,7 +183,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Batal</button>
+                                                                data-dismiss="modal">Batal</button>
                                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                                         </div>
                                                     </div>
@@ -202,13 +204,10 @@
                                         </form>
                                     </div>
                                 </td>
-
-                                {{-- <!-- Bootstrap JS (should be included in the main layout, not here) -->
-                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="12" class="text-center py-4">Belum ada pendaftar.</td>
+                                <td colspan="15" class="text-center py-4">Belum ada pendaftar.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -221,32 +220,6 @@
         </div>
     </div>
 @stop
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: '{{ session('success') }}',
-            timer: 3000,
-            showConfirmButton: false
-        });
-    </script>
-@endif
-
-@if (session('error'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: '{{ session('error') }}',
-            timer: 3000,
-            showConfirmButton: false
-        });
-    </script>
-@endif
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
@@ -283,7 +256,7 @@
                 responsive: true,
                 columnDefs: [{
                     orderable: false,
-                    targets: [0, 10, 11]
+                    targets: [0, 13, 14]
                 }],
                 language: {
                     search: "Cari:",
@@ -296,5 +269,25 @@
                 $('#pendaftarTable').DataTable().search(this.value).draw();
             });
         });
+
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
     </script>
 @stop
