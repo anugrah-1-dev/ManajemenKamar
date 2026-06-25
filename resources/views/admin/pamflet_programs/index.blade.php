@@ -19,9 +19,9 @@
             <div class="mb-4">
                 <form action="{{ route('admin.pamflet_programs.index') }}" method="GET">
                     <div class="input-group">
-                        <input type="text" name="search" class="form-control"
+                        <input type="text" name="search" id="search" class="form-control"
                             placeholder="Cari berdasarkan judul program..." value="{{ request('search') }}">
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-primary" type="submit" id="searchBtn">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -216,6 +216,7 @@
     </style>
 @endpush
 
+@push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if (session('success'))
@@ -241,3 +242,5 @@
         });
     </script>
 @endif
+@endpush
+
