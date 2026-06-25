@@ -614,29 +614,7 @@
     */
 
         'plugins' => [
-            'Datatables' => [
-                'active' => false,
-                'files' => [
-                    [
-                        'type' => 'js',
-                        'asset' => false,
-                        'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
-                    ],
-                    [
-                        'type' => 'js',
-                        'asset' => false,
-                        'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
-                    ],
-                    [
-                        'type' => 'css',
-                        'asset' => false,
-                        'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
-                    ],
-                    // 'Bootstrap' => true,
-                    // 'jQuery' => true,
 
-                ],
-            ],
             'Select2' => [
                 'active' => false,
                 'files' => [
@@ -696,11 +674,6 @@
                         'asset' => true,
                         'location' => 'vendor/bootstrap/js/bootstrap.bundle.min.js',
                     ],
-                    [
-                        'type' => 'css',
-                        'asset' => true,
-                        'location' => 'vendor/bootstrap/css/bootstrap.min.css',
-                    ],
                 ],
             ],
             'jQuery' => [
@@ -710,6 +683,36 @@
                         'type' => 'js',
                         'asset' => true,
                         'location' => 'vendor/jquery/jquery.min.js',
+                    ],
+                ],
+            ],
+            'Datatables' => [
+                'active' => true,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => 'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                    ],
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => 'https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    ],
+                    [
+                        'type' => 'css',
+                        'asset' => false,
+                        'location' => 'https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    ],
+                ],
+            ],
+            'BootstrapSwitch' => [
+                'active' => true,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js',
                     ],
                 ],
             ],
