@@ -693,13 +693,13 @@
                 'files' => [
                     [
                         'type' => 'js',
-                        'asset' => true,
-                        'location' => 'vendor/bootstrap/js/bootstrap.bundle.min.js',
+                        'asset' => false,
+                        'location' => 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js',
                     ],
                     [
                         'type' => 'css',
-                        'asset' => true,
-                        'location' => 'vendor/bootstrap/css/bootstrap.min.css',
+                        'asset' => false,
+                        'location' => 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css',
                     ],
                 ],
             ],
@@ -708,8 +708,8 @@
                 'files' => [
                     [
                         'type' => 'js',
-                        'asset' => true,
-                        'location' => 'vendor/jquery/jquery.min.js',
+                        'asset' => false,
+                        'location' => 'https://code.jquery.com/jquery-3.6.0.min.js',
                     ],
                 ],
             ],
