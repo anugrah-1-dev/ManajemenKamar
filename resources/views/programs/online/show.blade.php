@@ -108,7 +108,7 @@
                                         <th scope="row" class="bg-light">Thumbnail</th>
                                         <td>
                                             @if ($program->thumbnail)
-                                                <img src="{{ asset('storage/' . $program->thumbnail) }}"
+                                                <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}"
                                                     class="img-fluid rounded" alt="{{ $program->nama }}">
                                             @else
                                                 <em>Tidak ada thumbnail.</em>

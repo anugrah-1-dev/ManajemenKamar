@@ -26,7 +26,7 @@
                     {{-- Icon lama --}}
                     @if ($sosmed->image_path)
                         <small id="currentIconLabel" class="form-text text-muted">Icon saat ini:</small>
-                        <img id="imagePreviewEditExisting" src="{{ asset('storage/' . $sosmed->image_path) }}"
+                        <img id="imagePreviewEditExisting" src="{{ Str::startsWith($->image_path, ['http://', 'https://']) ? $->image_path : asset('storage/' . $->image_path) }}"
                             alt="Icon" class="img-thumbnail mt-2" style="max-height: 150px;">
                     @endif
 

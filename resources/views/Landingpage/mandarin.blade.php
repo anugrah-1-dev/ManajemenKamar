@@ -73,7 +73,7 @@
                 <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                     <div class="program-card h-100 d-flex flex-column">
                         <div class="program-card-image-wrapper">
-                            <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
+                            <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
                         </div>
                         <div class="program-card-content d-flex flex-column flex-grow-1">
                             <h4 class="program-title">{{ $program->nama }}</h4>
@@ -118,7 +118,7 @@
                 <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                     <div class="program-card h-100 d-flex flex-column">
                         <div class="program-card-image-wrapper">
-                            <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
+                            <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" class="program-card-img" alt="{{ $program->nama }}">
                         </div>
                         <div class="program-card-content d-flex flex-column flex-grow-1">
                             <h4 class="program-title">{{ $program->nama }}</h4>

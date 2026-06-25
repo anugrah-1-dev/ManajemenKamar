@@ -64,7 +64,7 @@
                             data-aos-delay="{{ ($loop->index % 3 + 1) * 100 }}">
                             <div class="program-card">
                                 <div class="program-card-image-wrapper">
-                                    <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                    <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" class="program-card-img"
                                         alt="{{ $program->nama }}">
                                 </div>
                                 <div class="card-body">

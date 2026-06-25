@@ -23,7 +23,7 @@
                     <input type="file" name="image_path" class="form-control-file" accept="image/*">
                     @if($galeri->image_path)
                         <div class="mt-2">
-                            <img src="{{ asset('storage/' . $galeri->image_path) }}" width="120">
+                            <img src="{{ Str::startsWith($->image_path, ['http://', 'https://']) ? $->image_path : asset('storage/' . $->image_path) }}" width="120">
                         </div>
                     @endif
                 </div>

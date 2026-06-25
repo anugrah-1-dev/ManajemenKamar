@@ -73,7 +73,7 @@
                                             </td>
                                             <td>
                                                 @if ($program->thumbnail)
-                                                    <img src="{{ asset('storage/' . $program->thumbnail) }}"
+                                                    <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}"
                                                         alt="{{ $program->nama }}" width="100">
                                                 @else
                                                     <span class="text-muted">No Image</span>

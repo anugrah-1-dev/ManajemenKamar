@@ -50,7 +50,7 @@
                                     </td>
                                     <td>
                                         @if ($sosmed->image_path)
-                                            <img src="{{ asset('storage/' . $sosmed->image_path) }}" alt="Icon"
+                                            <img src="{{ Str::startsWith($->image_path, ['http://', 'https://']) ? $->image_path : asset('storage/' . $->image_path) }}" alt="Icon"
                                                 height="32">
                                         @else
                                             <i class="fas fa-share-alt text-lightblue fa-lg"></i>

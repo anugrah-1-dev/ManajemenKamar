@@ -67,7 +67,7 @@
                     <div class="program-item offline" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>
@@ -122,7 +122,7 @@
                     <div class="program-item online" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                         <div class="program-card">
                             <div class="program-card-image-wrapper">
-                                <img src="{{ asset('storage/' . $program->thumbnail) }}" class="program-card-img"
+                                <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" class="program-card-img"
                                     alt="{{ $program->nama }}">
                                 @if ($program->is_active)
                                     <span class="badge bg-success program-badge">Tersedia</span>

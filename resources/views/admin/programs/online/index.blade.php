@@ -70,7 +70,7 @@
                                             </td>
                                             <td class="text-center">
                                                 @if ($program->thumbnail)
-                                                    <img src="{{ asset('storage/' . $program->thumbnail) }}"
+                                                    <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}"
                                                         alt="{{ $program->nama }}" class="img-thumbnail"
                                                         style="max-height: 60px;">
                                                 @else

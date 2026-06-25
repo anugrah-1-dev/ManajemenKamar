@@ -54,7 +54,7 @@
                                 @if ($program->thumbnail)
                                     <div class="text-center mb-3">
 
-                                        <img src="{{ asset('storage/' . $program->thumbnail) }}"
+                                        <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}"
                                             class="img-fluid rounded" alt="{{ $program->nama }}">
                                     </div>
                                 @endif
