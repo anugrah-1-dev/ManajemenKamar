@@ -308,7 +308,7 @@
                                             ? $contactServices->first()->nomor
                                             : '6281234567890';
                                     @endphp
-                                    <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode('Halo, saya ingin konfirmasi pembayaran untuk ID Transaksi: ' . $pendaftaran->trx_id . ' dengan total Rp ' . number_format($pendaftaran->program->harga, 0, ',', '.')) }}"
+                                    <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode($waText) }}"
                                         class="btn btn-success mb-2" target="_blank"><i class="bi bi-whatsapp"></i>
                                         Konfirmasi via WhatsApp</a>
                                     <a href="{{ url('/') }}" class="btn btn-outline-secondary mb-2"><i
