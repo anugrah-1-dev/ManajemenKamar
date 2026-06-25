@@ -30,8 +30,7 @@ class PendaftranCampController extends Controller
      */
     public function showForm(ProgramCamp $program)
     {
-        $periods = Period::where('is_active', true)->get();
-        return view('camp.register', compact('program', 'periods'));
+        return redirect()->route('camps.show', $program->slug);
     }
 
     /**
@@ -122,7 +121,7 @@ class PendaftranCampController extends Controller
         // Kurangi stok
         $program->decrement('stok');
 
-        return redirect()->route('camp.room', ['trx_id' => $pendaftaran->trx_id]);
+        return redirect()->route('camp.room.pilih', ['trx_id' => $pendaftaran->trx_id]);
     }
 
     public function halamanKamar($trx_id)
