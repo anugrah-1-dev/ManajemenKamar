@@ -51,8 +51,8 @@ use App\Http\Controllers\DpController;
 |--------------------------------------------------------------------------
 */
 //camp
-Route::get('/camps', [CampController::class, 'publicIndex'])->name('camps.index');
-Route::get('/camps/{camp:slug}', [CampController::class, 'publicShow'])->name('camps.show');
+Route::get('/camps', [CampController::class, 'index'])->name('camps.index');
+Route::get('/camps/{slug}', [CampController::class, 'show'])->name('camps.show');
 Route::get('/camp/{slug}/room', [CampController::class, 'room'])->name('camp.room');
 Route::get('/camp/{slug}', [CampController::class, 'show'])->name('camp.show.detail');
 

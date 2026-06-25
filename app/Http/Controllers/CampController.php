@@ -28,7 +28,7 @@ class CampController extends Controller
 
         $stokHabis = $program->stok == 0; // <--- cek stok di sini
 
-        return view('camp.show', compact('program', 'facilities', 'periods', 'banks', 'stokHabis',));
+        return view('camp.show', compact('program', 'facilities', 'periods', 'banks', 'stokHabis'));
     }
 
 
