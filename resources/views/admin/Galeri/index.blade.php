@@ -83,6 +83,7 @@
     </div>
 @stop
 
+@push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if (session('success'))
@@ -108,3 +109,5 @@
         });
     </script>
 @endif
+@endpush
+

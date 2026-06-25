@@ -6,6 +6,7 @@
 <h1 class="m-0">Edit Status Pendaftaran: {{ $pendaftaran->trx_id }}</h1>
 @stop
 
+@push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if (session('success'))
@@ -106,3 +107,4 @@
     </div>
 </div>
 @stop
+@endpush
