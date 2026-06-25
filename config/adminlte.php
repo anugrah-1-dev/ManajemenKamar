@@ -615,26 +615,33 @@
 
         'plugins' => [
             'Datatables' => [
-                'active' => false,
+                'active' => true,
                 'files' => [
                     [
                         'type' => 'js',
                         'asset' => false,
-                        'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                        'location' => 'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                     ],
                     [
                         'type' => 'js',
                         'asset' => false,
-                        'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                        'location' => 'https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                     ],
                     [
                         'type' => 'css',
                         'asset' => false,
-                        'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                        'location' => 'https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                     ],
-                    // 'Bootstrap' => true,
-                    // 'jQuery' => true,
-
+                ],
+            ],
+            'BootstrapSwitch' => [
+                'active' => true,
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js',
+                    ],
                 ],
             ],
             'Select2' => [
