@@ -114,7 +114,7 @@
 
         @if ($program->thumbnail)
             <div class="program-img">
-                <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" alt="{{ $program->nama }}">
+                <img src="{{ Str::startsWith($program->thumbnail, ['http://', 'https://']) ? $program->thumbnail : asset('storage/' . $program->thumbnail) }}" alt="{{ $program->nama }}">
             </div>
         @endif
 

@@ -107,7 +107,7 @@
 
                                 $imgSrc = $isYoutube
                                     ? "https://img.youtube.com/vi/{$youtubeId}/hqdefault.jpg"
-                                    : ($sosmed->image_path ? Str::startsWith($->image_path, ['http://', 'https://']) ? $->image_path : asset('storage/' . $->image_path) : 'https://via.placeholder.com/100x100?text=No+Image');
+                                    : ($sosmed->image_path ? Str::startsWith($sosmed->image_path, ['http://', 'https://']) ? $sosmed->image_path : asset('storage/' . $sosmed->image_path) : 'https://via.placeholder.com/100x100?text=No+Image');
                             @endphp
 
                             <div class="d-flex flex-column align-items-center m-2">

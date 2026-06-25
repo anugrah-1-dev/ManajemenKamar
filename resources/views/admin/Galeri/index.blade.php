@@ -50,7 +50,7 @@
                             <td>{{ $galeri->title }}</td>
                             <td>
                                 @if ($galeri->image_path)
-                                    <img src="{{ Str::startsWith($->image_path, ['http://', 'https://']) ? $->image_path : asset('storage/' . $->image_path) }}" width="80">
+                                    <img src="{{ Str::startsWith($galeri->image_path, ['http://', 'https://']) ? $galeri->image_path : asset('storage/' . $galeri->image_path) }}" width="80">
                                 @else
                                     <span class="text-muted">Tidak ada gambar</span>
                                 @endif

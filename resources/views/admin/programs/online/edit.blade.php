@@ -156,7 +156,7 @@
                                 @if ($online->thumbnail)
                                     <div class="thumbnail-preview-container">
                                         <p class="font-weight-bold">Thumbnail Saat Ini:</p>
-                                        <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" class="img-thumbnail"
+                                        <img src="{{ Str::startsWith($online->thumbnail, ['http://', 'https://']) ? $online->thumbnail : asset('storage/' . $online->thumbnail) }}" class="img-thumbnail"
                                             id="currentThumbnail" width="200">
                                     </div>
                                 @endif

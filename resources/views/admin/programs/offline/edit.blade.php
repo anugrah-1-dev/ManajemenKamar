@@ -170,7 +170,7 @@
                             <div class="row mt-3">
                                 <div class="col-md-6">
                                     <p class="font-weight-bold">Thumbnail Saat Ini:</p>
-                                    <img src="{{ Str::startsWith($->thumbnail, ['http://', 'https://']) ? $->thumbnail : asset('storage/' . $->thumbnail) }}" class="img-thumbnail"
+                                    <img src="{{ Str::startsWith($offline->thumbnail, ['http://', 'https://']) ? $offline->thumbnail : asset('storage/' . $offline->thumbnail) }}" class="img-thumbnail"
                                         width="200">
                                 </div>
                                 <div class="col-md-6" id="newThumbnailPreview" style="display:none;">

@@ -23,7 +23,7 @@
         @foreach ($gallery->images as $image)
             <div class="col-md-3 mb-4">
                 <div class="card">
-                    <img src="{{ Str::startsWith($->image_path, ['http://', 'https://']) ? $->image_path : asset('storage/' . $->image_path) }}" class="card-img-top" alt="Foto Galeri">
+                    <img src="{{ Str::startsWith($image->image_path, ['http://', 'https://']) ? $image->image_path : asset('storage/' . $image->image_path) }}" class="card-img-top" alt="Foto Galeri">
                     <div class="card-body">
                         <p class="text-muted small">{{ $image->caption ?? '-' }}</p>
                     </div>

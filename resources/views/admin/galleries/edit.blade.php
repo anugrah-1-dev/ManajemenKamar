@@ -64,7 +64,7 @@
                 @forelse ($gallery->images as $image)
                     <div class="col-md-3 mb-3">
                         <div class="card shadow-sm">
-                            <img src="{{ Str::startsWith($->image_path, ['http://', 'https://']) ? $->image_path : asset('storage/' . $->image_path) }}" class="card-img-top rounded"
+                            <img src="{{ Str::startsWith($image->image_path, ['http://', 'https://']) ? $image->image_path : asset('storage/' . $image->image_path) }}" class="card-img-top rounded"
                                 alt="Gambar Galeri">
                             <div class="card-body p-2 text-center">
                                 <button class="btn btn-sm btn-danger btn-block btn-delete-image"
