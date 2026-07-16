@@ -23,13 +23,10 @@ class CampController extends Controller
     {
         $program = ProgramCamp::with('thumbnails')->where('slug', $slug)->firstOrFail();
         $facilities = !empty($program->fasilitas) ? explode(',', $program->fasilitas) : [];
-        $periods = Period::where('is_active', 1)->get();
-        $banks = Banks::all();
 
-        $stokHabis = $program->stok == 0; // <--- cek stok di sini
-
-        return view('camp.show', compact('program', 'facilities', 'periods', 'banks', 'stokHabis'));
+        return view('camp.show', compact('program', 'facilities'));
     }
+
 
 
     // public function storePendaftaran(Request $request, $programCampId)

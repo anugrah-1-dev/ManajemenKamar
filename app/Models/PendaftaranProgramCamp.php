@@ -9,7 +9,7 @@ class PendaftaranProgramCamp extends Model
     protected $table = 'pendaftaran_program_camp';
 
     protected $fillable = [
-        'trx_id', // tambahkan ini
+        'trx_id',
         'nama_lengkap',
         'email',
         'no_hp',
@@ -18,6 +18,8 @@ class PendaftaranProgramCamp extends Model
         'program_camp_id',
         'period_id',
         'durasi_paket',
+        'tanggal_masuk',
+        'tanggal_keluar',
         'nama_kamar',
         'bukti_pembayaran',
         'status',
@@ -25,6 +27,12 @@ class PendaftaranProgramCamp extends Model
         'payment_type',
         'room_id',
     ];
+
+    protected $casts = [
+        'tanggal_masuk'  => 'date',
+        'tanggal_keluar' => 'date',
+    ];
+
 
 
     // Relasi ke ProgramCamp

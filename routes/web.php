@@ -249,10 +249,13 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
 
     // Pendaftaran Program Camp
     Route::get('/pendaftaran/camp', [PendaftaranProgramCampController::class, 'index'])->name('pendaftaran.camp.index');
+    Route::get('/pendaftaran/camp/create', [PendaftaranProgramCampController::class, 'create'])->name('pendaftaran.camp.create');
+    Route::post('/pendaftaran/camp', [PendaftaranProgramCampController::class, 'store'])->name('pendaftaran.camp.store');
     Route::get('/pendaftaran/camp/{id}/edit', [PendaftaranProgramCampController::class, 'edit'])->name('pendaftaran.camp.edit');
     Route::put('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'update'])->name('pendaftaran.camp.update');
     Route::delete('/pendaftaran/camp/{id}', [PendaftaranProgramCampController::class, 'destroy'])->name('pendaftaran.camp.destroy');
     Route::get('/pendaftaran/camp/{id}/bukti', [PendaftaranProgramCampController::class, 'showBukti'])->name('pendaftaran.camp.bukti');
+    Route::get('/pendaftaran/camp/{id}/rooms-by-program', [PendaftaranProgramCampController::class, 'getRoomsByProgram'])->name('pendaftaran.camp.rooms-by-program');
 
 
     //periods

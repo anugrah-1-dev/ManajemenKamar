@@ -6,6 +6,9 @@
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
         <h1 class="m-0">Daftar Pendaftar Program Camp</h1>
         <div class="d-flex flex-column flex-md-row gap-2 align-items-center">
+            <a href="{{ route('admin.pendaftaran.camp.create') }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus mr-1"></i> Tambah Pendaftar
+            </a>
             <div class="input-group input-group-sm" style="width: 250px;">
                 <input type="text" id="searchInput" class="form-control" placeholder="Cari...">
                 <span class="input-group-append">
@@ -82,6 +85,8 @@
                             <th>Program</th>
                             <th>Periode</th>
                             <th>Paket</th>
+                            <th>Tgl Masuk</th>
+                            <th>Tgl Keluar</th>
                             <th>Kamar</th>
                             <th>Status</th>
                             <th>Bank</th>
@@ -93,7 +98,7 @@
                     <tbody>
                         @forelse ($pendaftar as $index => $data)
                             <tr>
-                             <td>{{ $index + 1 }}</td>
+                                 <td>{{ $index + 1 }}</td>
 
                                 <td>{{ $data->nama_lengkap }}</td>
                                 <td>{{ $data->gender }}</td>
@@ -103,6 +108,31 @@
                                 <td>{{ $data->programCamp->nama ?? '-' }}</td>
                                 <td>{{ $data->period?->date?->translatedFormat('d F Y') ?? '-' }}</td>
                                 <td>{{ $data->durasi_paket }}</td>
+                                <td>
+                                    @if($data->tanggal_masuk)
+                                        {{ $data->tanggal_masuk->format('d/m/Y') }}
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($data->tanggal_keluar)
+                                        @php
+                                            $isExpired = $data->tanggal_keluar->isPast();
+                                            $daysLeft  = now()->diffInDays($data->tanggal_keluar, false);
+                                        @endphp
+                                        <span class="badge badge-{{ $isExpired ? 'danger' : ($daysLeft <= 3 ? 'warning' : 'success') }}">
+                                            {{ $data->tanggal_keluar->format('d/m/Y') }}
+                                        </span>
+                                        @if(!$isExpired)
+                                            <br><small class="text-muted">{{ $daysLeft }} hari lagi</small>
+                                        @else
+                                            <br><small class="text-danger">Sudah berakhir</small>
+                                        @endif
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
                                 <td>{{ $data->nama_kamar }}</td>
                                 <td>
                                     @php
@@ -256,7 +286,7 @@
                 responsive: true,
                 columnDefs: [{
                     orderable: false,
-                    targets: [0, 13, 14]
+                    targets: [0, 15, 16]
                 }],
                 language: {
                     search: "Cari:",
