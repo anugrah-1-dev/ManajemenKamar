@@ -275,14 +275,58 @@
         // Restore old value on page reload
         document.getElementById('payment_type').dispatchEvent(new Event('change'));
 
+        // ===== KAMAR: Load & Filter by Gender =====
+        let allRooms = []; // Simpan semua kamar dari server
+
+        function renderKamarOptions() {
+            const roomSelect = document.getElementById('room_id');
+            const gender     = document.getElementById('gender').value;
+            const infoKamar  = document.getElementById('infoKamar');
+
+            roomSelect.innerHTML = '<option value="">-- Pilih Kamar --</option>';
+            infoKamar.style.display = 'none';
+
+            // Filter berdasarkan gender jika sudah dipilih
+            const filtered = gender
+                ? allRooms.filter(r => (r.gender ?? '').toLowerCase() === gender.toLowerCase())
+                : allRooms;
+
+            if (filtered.length === 0) {
+                const opt = document.createElement('option');
+                opt.value   = '';
+                opt.textContent = gender
+                    ? `Tidak ada kamar untuk gender "${gender}"`
+                    : 'Tidak ada kamar tersedia';
+                roomSelect.appendChild(opt);
+                roomSelect.disabled = true;
+                return;
+            }
+
+            filtered.forEach(room => {
+                const sisa = room.kapasitas - room.penghuni;
+                const opt  = document.createElement('option');
+                opt.value            = room.id;
+                opt.dataset.gender   = room.gender ?? '-';
+                opt.dataset.kategori = room.kategori ?? '-';
+                opt.dataset.kapasitas= room.kapasitas;
+                opt.dataset.penghuni = room.penghuni;
+                opt.dataset.sisa     = sisa;
+                opt.textContent      = `${room.nomor_kamar} | ${room.gender ?? '-'} | Sisa: ${sisa}/${room.kapasitas}`;
+                roomSelect.appendChild(opt);
+            });
+
+            roomSelect.disabled = false;
+        }
+
         // Load kamar saat program dipilih
         document.getElementById('program_camp_id').addEventListener('change', function () {
             const programId = this.value;
             const roomSelect = document.getElementById('room_id');
-            const infoKamar = document.getElementById('infoKamar');
+            const infoKamar  = document.getElementById('infoKamar');
 
+            allRooms = [];
             roomSelect.innerHTML = '<option value="">-- Memuat kamar... --</option>';
-            roomSelect.disabled = true;
+            roomSelect.disabled  = true;
             infoKamar.style.display = 'none';
 
             if (!programId) {
@@ -293,29 +337,26 @@
             fetch(`${routeRooms}/${programId}/rooms-by-program`)
                 .then(res => res.json())
                 .then(rooms => {
-                    roomSelect.innerHTML = '<option value="">-- Pilih Kamar --</option>';
-
-                    if (rooms.length === 0) {
-                        roomSelect.innerHTML = '<option value="">Tidak ada kamar tersedia</option>';
-                    } else {
-                        rooms.forEach(room => {
-                            const sisa = room.kapasitas - room.penghuni;
-                            const opt = document.createElement('option');
-                            opt.value = room.id;
-                            opt.dataset.gender    = room.gender ?? '-';
-                            opt.dataset.kategori  = room.kategori ?? '-';
-                            opt.dataset.kapasitas = room.kapasitas;
-                            opt.dataset.penghuni  = room.penghuni;
-                            opt.dataset.sisa      = sisa;
-                            opt.textContent = `${room.nomor_kamar} | ${room.gender ?? '-'} | Sisa: ${sisa}/${room.kapasitas}`;
-                            roomSelect.appendChild(opt);
-                        });
-                        roomSelect.disabled = false;
-                    }
+                    allRooms = rooms;
+                    renderKamarOptions();
                 })
                 .catch(() => {
                     roomSelect.innerHTML = '<option value="">Gagal memuat kamar</option>';
                 });
+        });
+
+        // Filter ulang kamar saat gender diubah
+        document.getElementById('gender').addEventListener('change', function () {
+            const roomSelect = document.getElementById('room_id');
+            const infoKamar  = document.getElementById('infoKamar');
+
+            // Reset pilihan kamar dan info
+            roomSelect.value = '';
+            infoKamar.style.display = 'none';
+
+            if (allRooms.length > 0) {
+                renderKamarOptions();
+            }
         });
 
         // Tampilkan info kamar saat dipilih
@@ -335,6 +376,7 @@
             document.getElementById('infoSisa').textContent        = opt.dataset.sisa;
             infoKamar.style.display = '';
         });
+
 
         // Restore program pilihan sebelumnya jika ada (old input)
         @if(old('program_camp_id'))
