@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,6 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $admin = User::firstOrCreate([
+            'email' => 'AdminBrilliant@gmail.com',
+        ], [
+            'name' => 'admin',
+            'password' => bcrypt('admintest!'),
+        ]);
+
+        $role = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+        $admin->assignRole($role);
+
         $this->call(AdminUserSeeder::class);
         $this->call(RolePermissionSeeder::class);
         $this->call(BankSeeder::class);
