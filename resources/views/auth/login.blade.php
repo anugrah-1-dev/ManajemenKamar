@@ -4,7 +4,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="bg-white p-4 rounded shadow-sm" style="width: 100%; max-width: 500px;">
             <div class="text-center mb-4">
-                <img src="{{ asset('asset/icon/kitty.png') }}" id="catHead" width="120" alt="Cat Head">
+                <img src="{{ asset('asset/img/bietest.png') }}" id="catHead" width="120" alt="BiePlus Logo">
 
                 <h4 class="mt-3">{{ __('Login Admin') }}</h4>
             </div>
