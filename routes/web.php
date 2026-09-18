@@ -152,8 +152,9 @@ Route::get('/pendaftaran/offline/{trx_id}/dp', [DpController::class, 'dp'])
 // Upload bukti DP
 Route::post('/dp/store', [DpController::class, 'store'])->name('dp.store');
 
-// Halaman utama
-Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+// Halaman utama -> redirect ke login
+Route::redirect('/', '/login');
+Route::get('/landing', [LandingPageController::class, 'index'])->name('landing');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -166,36 +167,18 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/stok', [DashboardController::class, 'dashboardStok'])->name('admin.dashboard.stok');
 
-    // ============================================================
-    // PENGATURAN AKSES — Admin boleh lihat & update,
-    // tetapi DELETE hanya boleh Officer / Developer
-    // ============================================================
-    Route::resource('roles', RoleController::class)->except(['destroy']);
-    Route::delete('roles/{role}', [RoleController::class, 'destroy'])
-        ->middleware('permission:akses officer')->name('roles.destroy');
-
-    Route::resource('permissions', PermissionController::class)->except(['destroy']);
-    Route::delete('permissions/{permission}', [PermissionController::class, 'destroy'])
-        ->middleware('permission:akses officer')->name('permissions.destroy');
-
-    Route::resource('users', UserController::class)->except(['destroy']);
-    Route::delete('users/{user}', [UserController::class, 'destroy'])
-        ->middleware('permission:akses officer')->name('users.destroy');
-
-    // ============================================================
-    // DATA MASTER — Khusus Officer / Developer (DIHIDE dari Admin)
-    // Admin yang membuka URL ini secara manual akan ditolak (403)
-    // ============================================================
-    Route::middleware('permission:akses officer')->group(function () {
-
+    //roles
+    Route::resource('roles', RoleController::class);
+    //permissions
+    Route::resource('permissions', PermissionController::class);
+    //users
+    Route::resource('users', UserController::class);
     //banks
     Route::resource('banks', BankController::class);
     //transports
     Route::resource('transports', TransportsController::class);
     //cs
     Route::resource('customer_services', Customer_Service_Controller::class);
-
-    }); // end: data master (officer / developer)
 
     // Pamflet
     Route::get('pamflet_programs', [ProgramController::class, 'index'])->name('pamflet_programs.index');
@@ -213,13 +196,9 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     //program online
     Route::resource('programs/online', ProgramOnlineController::class);
 
-    // ============================================================
-    // GALLERIES — Khusus Officer / Developer (DIHIDE dari Admin)
-    // ============================================================
-    Route::middleware('permission:akses officer')->group(function () {
-        Route::resource('galleries', GalleryController::class);
-        Route::delete('galleries/images/{id}', [GalleryController::class, 'destroyImage'])->name('galleries.images.destroy');
-    }); // end: galleries (officer / developer)
+    // gallery
+    Route::resource('galleries', GalleryController::class);
+    Route::delete('galleries/images/{id}', [GalleryController::class, 'destroyImage'])->name('galleries.images.destroy');
 
     //program camp
     Route::resource('programs/camp', ProgramCampController::class)->names('programs.camp');
@@ -280,18 +259,13 @@ Route::middleware(['auth', 'role:admin|officer'])->prefix('admin')->name('admin.
     Route::get('/pendaftaran/camp/{id}/rooms-by-program', [PendaftaranProgramCampController::class, 'getRoomsByProgram'])->name('pendaftaran.camp.rooms-by-program');
 
 
-    //periods — visible untuk Admin
+    //periods
     Route::resource('periods', PeriodsController::class)->only(['index', 'store', 'update', 'destroy']);
 
-    // ============================================================
-    // Periods NHC + Sosmed — Khusus Officer / Developer (DIHIDE Admin)
-    // ============================================================
-    Route::middleware('permission:akses officer')->group(function () {
-        Route::resource('periods_nhc', PeriodNHCController::class);
+    Route::resource('periods_nhc', PeriodNHCController::class);
 
-        //sosmed
-        Route::resource('sosmed', SosmedController::class);
-    });
+    //sosmed
+    Route::resource('sosmed', SosmedController::class);
 
     Route::put('/admin/pendaftaran/camp/update-status/{id}', [PendaftaranProgramCampController::class, 'updateStatus'])->name('pendaftaran.camp.update-status');
 
