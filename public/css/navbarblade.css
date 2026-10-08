@@ -1,0 +1,256 @@
+  /* === Base Navbar Styles === */
+    #navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 5%;
+        background-color: #ffffff;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 80px;
+    }
+
+    #navbar.scrolled {
+        background-color: #000;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo img {
+        height: 50px;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-right: 1%;
+    }
+
+    .nav-links>a {
+        font-size: 0.9rem;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        padding: 10px 0;
+        position: relative;
+
+    }
+
+    #navbar:not(.scrolled) .nav-links>a {
+        color: #333;
+    }
+
+    .nav-links>a:not(.btn):after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #fff;
+        transition: width 0.3s ease;
+    }
+
+    #navbar:not(.scrolled) .nav-links>a:after {
+        background-color: #333;
+    }
+
+    .nav-links>a:not(.btn):hover:after {
+        width: 100%;
+    }
+
+    /* === Dropdown Styles === */
+    .dropdown {
+        position: relative;
+        height: 100%;
+    }
+
+    .dropbtn {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        padding: 10px 0;
+        background: none;
+        border: none;
+        font-family: inherit;
+        font-size: 1rem;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    #navbar:not(.scrolled) .dropbtn {
+        color: #333;
+    }
+
+    .arrow {
+        font-size: 0.7em;
+        transition: transform 0.3s ease;
+    }
+
+    /* Dropdown default (saat navbar putih) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        /* putih default */
+        min-width: 220px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        z-index: 1000;
+        padding: 10px 0;
+    }
+
+    /* Dropdown saat navbar di-scroll */
+    #navbar.scrolled .dropdown-content {
+        background-color: #000;
+        /* ikut hitam */
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        /* bayangan lebih terang biar kelihatan */
+        color: #fff;
+        /* teks jadi putih */
+    }
+
+
+    .dropdown-content a {
+        color: #333;
+        padding: 10px 20px;
+        text-decoration: none;
+        display: block;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    /* Default (navbar putih) */
+    .dropdown-content a:hover {
+        background-color: #f8f9fa;
+        /* abu terang */
+        color: #0066cc;
+        /* biru */
+        padding-left: 25px;
+    }
+
+    /* Saat navbar scrolled (hitam) */
+    #navbar.scrolled .dropdown-content a:hover {
+        background-color: #222;
+        /* abu gelap, masih beda dari navbar hitam */
+        color: #66b2ff;
+        /* biru muda agar kontras di background gelap */
+        padding-left: 25px;
+    }
+
+
+    .dropdown.active .dropdown-content {
+        display: block;
+    }
+
+    .dropdown.active .arrow {
+        transform: rotate(180deg);
+    }
+
+    /* === Button Styles === */
+    .btn {
+        background-color: #0066cc;
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #0052a3;
+    }
+
+    /* === Burger Menu === */
+    .burger {
+        display: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .burger span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background-color: #fff;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+
+    #navbar:not(.scrolled) .burger span {
+        background-color: #333;
+    }
+
+    /* === Responsive Styles === */
+    @media (max-width: 768px) {
+        .burger {
+            display: block;
+        }
+
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            gap: 15px;
+        }
+
+        #navbar:not(.scrolled) .nav-links {
+            background-color: #fff;
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .dropdown {
+            width: 100%;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dropbtn {
+            padding: 10px 0;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .dropdown-content {
+            position: static;
+            box-shadow: none;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #navbar:not(.scrolled) .dropdown-content {
+            background-color: #fff;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+        }
+
+        #navbar:not(.scrolled) .dropdown-content a {
+            color: #333;
+        }
+
+        .btn {
+            margin-left: 0;
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+        }
+    }

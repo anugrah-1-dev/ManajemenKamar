@@ -1,0 +1,800 @@
+/* mandarinlandingpage.css */
+
+/* General */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #fff4f4; /* Merah muda lembut */
+    color: #333;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    overflow: hidden;
+}
+
+/* Carousel */
+.carousel {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.slides {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    filter: brightness(60%);
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(3, 189, 77, 0.6); /* Merah transparan */
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.prev:hover,
+.next:hover {
+    background: rgba(71, 171, 8, 0.8);
+}
+
+.prev {
+    left: 20px;
+}
+.next {
+    right: 20px;
+}
+
+/* Hero Text */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #09740f;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #ffd700; /* Kuning emas */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.hero-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+/* CTA Button */
+.cta-button {
+    display: inline-block; /* biar bisa diposisikan fleksibel */
+    background: #09740f; /* Merah bendera China */
+    color: #09740f; /* Emas */
+    padding: 12px 30px; /* Ruang dalam */
+    border: none; /* Hilangkan border default */
+    border-radius: 30px; /* Membulat */
+    text-decoration: none; /* Hilangkan underline */
+    font-weight: bold; /* Tebal */
+    font-size: 16px; /* Ukuran teks */
+    text-align: center; /* Rata tengah */
+    cursor: pointer; /* Pointer saat hover */
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.cta-button:hover {
+    background: #09740f; /* Warna lebih gelap saat hover */
+    color: #fff; /* Teks jadi putih */
+    transform: translateY(-2px); /* Efek angkat sedikit */
+}
+
+.cta-button:active {
+    transform: translateY(0); /* Balik normal saat diklik */
+}
+
+/* About Section */
+.about {
+    padding: 90px 20px;
+    background: #fff;
+    text-align: center;
+}
+
+.about .container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.about h2 {
+    font-size: 2.7rem;
+    margin-bottom: 20px;
+    color: #09740f;
+    font-weight: 700;
+}
+
+.about h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #ffd700; /* garis kuning */
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.about p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.about .highlight {
+    color: #09740f;
+    font-weight: bold;
+}
+
+/* About Grid */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.about-card {
+    background: #fff9f2;
+    padding: 35px 25px;
+    border-radius: 14px;
+    border-top: 4px solid #ffd700;
+    box-shadow: 0 6px 18px rgba(200, 16, 46, 0.15);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 26px rgba(200, 16, 46, 0.25);
+}
+
+.about-card h3 {
+    font-size: 1.4rem;
+    color: #09740f;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.about-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Alur Section */
+.alur {
+    padding: 90px 20px;
+    background: #09740f;
+    color: #fff;
+    text-align: center;
+}
+
+.alur h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #ffd700;
+}
+
+.alur p {
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    color: #fff3cd;
+}
+
+/* Timeline */
+.alur-timeline {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.alur-timeline::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 5%;
+    right: 5%;
+    height: 4px;
+    background: rgba(255, 215, 0, 0.5);
+}
+
+.step {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    min-width: 180px;
+    margin: 0 10px;
+}
+
+.circle {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #ffd700;
+    color: #09740f;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #fff;
+}
+
+/* Wave Divider */
+.wave-divider {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    line-height: 0;
+    background: #ffffff; /* Bagian bawah putih */
+    margin-top: -1px;
+    margin-bottom: -1px;
+}
+
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-divider .shape-fill {
+    fill: #09740f;
+}
+
+/* Program Section */
+.program-section {
+    background-color: #fff4f4;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #09740f;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+/* ============================================= */
+/* ==         1. VARIABLES (VARIABEL)         == */
+/* ============================================= */
+:root {
+    --color-primary: #09740f; /* Merah Tua */
+    --color-secondary: #ffd700; /* Kuning Emas */
+    --color-background: #fff;
+    --color-bg-alt: #fff4f4;
+    --color-text-dark: #333;
+    --color-text-light: #555;
+    --color-icon-check: #4caf50; /* Warna hijau untuk ikon centang */
+    --color-card-border: #e0e0e0;
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --shadow-btn: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius-card: 12px;
+    --border-radius-btn: 8px;
+}
+
+/* ============================================= */
+/* ==    2. GENERAL SECTION & LAYOUT          == */
+/* ============================================= */
+.program-section {
+    background-color: var(--color-bg-alt);
+    padding: 4rem 1.5rem;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    text-align: left;
+}
+
+/* ============================================= */
+/* ==       3. CARD STYLING (KARTU)           == */
+/* ============================================= */
+.program-card {
+    background: #f4f4f0;
+    border-radius: 25px;
+    box-shadow: var(--shadow-light);
+    border: 3px solid #09740f;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    display: flex; /* penting */
+    flex-direction: column; /* supaya isi vertikal */
+    height: 100%; /* biar penuh */
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.program-card-image-wrapper {
+    overflow: hidden;
+    position: relative;
+    margin: 10px;
+    height: calc(180px - 20px);
+    border-radius: 20px;
+    border: 1px solid #09740f;
+}
+
+.program-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.program-card:hover .program-card-img {
+    transform: scale(1.05);
+}
+
+.program-card-content {
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+
+    display: flex; /* penting */
+    flex-direction: column; /* vertikal */
+    flex-grow: 1; /* isi fleksibel */
+}
+
+.program-features {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+    text-align: left;
+    flex-grow: 1; /* isi fitur fleksibel */
+}
+
+.program-btn {
+    display: block;
+    width: 85%;
+    margin-top: auto; /* tombol otomatis nempel bawah */
+    padding: 0.75rem 1.5rem;
+    background: #e88d04;
+    color: #fff;
+    font-weight: 600;
+    border-radius: var(--border-radius-btn);
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.program-btn:hover {
+    background: #e88d04;
+}
+
+/* ============================================= */
+/* ==      4. TYPOGRAPHY & CONTENT          == */
+/* ============================================= */
+.program-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.program-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
+
+.program-features {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+    text-align: left;
+    flex-grow: 1; /* bagian fitur fleksibel ngisi ruang */
+}
+
+/*
+.features-heading {
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-light);
+}
+
+.program-features ul {
+    padding-left: 0.5rem;
+} */
+
+/* .program-features li {
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.program-features li .fas.fa-check-square {
+    color: var(--color-icon-check);
+    margin-right: 8px;
+    margin-top: 3px;
+    font-size: 1rem;
+} */
+
+.program-card-content hr {
+    border-top: 1px solid #dee2e6;
+    margin: 1.5rem 0;
+}
+
+/* ============================================= */
+/* ==           5. BUTTONS (TOMBOL)           == */
+/* ============================================= */
+.program-btn {
+    display: block;
+    width: 85%;
+    margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    background: #e88d04;
+    color: #fff;
+    font-weight: 600;
+    border-radius: var(--border-radius-btn);
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.program-btn:hover {
+    background: #e88d04;
+}
+
+/* ============================================= */
+/* ==       6. FILTER CONTROLS (FILTER)       == */
+/* ============================================= */
+.filter-buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.5rem;
+    border: 2px solid var(--color-primary);
+    background: var(--color-background);
+    color: var(--color-primary);
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.filter-btn:hover:not(.active) {
+    background-color: #fff5f5;
+}
+
+.filter-btn.active {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    border-color: var(--color-secondary);
+}
+
+/* ALUR - Mandarin Style */
+.alur-mandarin {
+    padding: 90px 20px;
+    background: #09740f; /* Merah khas Tiongkok */
+    color: #fff;
+    text-align: center;
+}
+
+.alur-mandarin .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.alur-mandarin h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #ffd700; /* Kuning emas */
+    font-weight: bold;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.alur-mandarin p {
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    color: #ffe680; /* Kuning lembut */
+}
+
+/* Timeline Style Mandarin */
+.alur-timeline-mandarin {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.alur-timeline-mandarin::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 5%;
+    right: 5%;
+    height: 4px;
+    background: rgba(255, 215, 0, 0.6); /* Garis kuning emas */
+    z-index: 0;
+}
+
+.step-mandarin {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+    margin: 0 10px;
+    z-index: 1;
+}
+
+.circle-mandarin {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #ffd700; /* Lingkaran kuning emas */
+    color: #09740f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 3px solid #fff;
+}
+
+.step-mandarin h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #ffd700; /* Judul kuning emas */
+    font-weight: bold;
+}
+
+.step-mandarin p {
+    font-size: 0.9rem;
+    color: #ffe680; /* Teks kuning lembut */
+    line-height: 1.5;
+}
+
+/* Section Mandarin */
+.alur-mandarin {
+    background-color: #09740f;
+    color: #ffd700; /* kuning emas untuk teks */
+    padding: 60px 20px;
+}
+/* ============================= */
+/* 📱 Responsive untuk Mobile */
+/* ============================= */
+@media (max-width: 768px) {
+    .alur-mandarin {
+        padding: 50px 15px; /* lebih ringkas */
+    }
+
+    .alur-mandarin h2 {
+        font-size: 1.8rem; /* lebih kecil */
+    }
+
+    .alur-mandarin p {
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
+
+    /* Timeline ubah jadi vertikal */
+    .alur-timeline-mandarin {
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+
+    /* ❌ Hilangkan garis vertikal di mobile */
+    .alur-timeline-mandarin::before {
+        display: none;
+        content: none;
+    }
+
+    .step-mandarin {
+        flex: none;
+        width: 100%;
+        max-width: 300px;
+        margin: 30px 0;
+        text-align: center;
+    }
+
+    .circle-mandarin {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        z-index: 1;
+    }
+
+    .step-mandarin h3 {
+        font-size: 1rem;
+    }
+
+    .step-mandarin p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+    .footer {
+        background-color: orange; /* warna latar belakang */
+        color: white; /* warna teks */
+        padding: 15px 0; /* jarak atas-bawah */
+        position: fixed; /* selalu di bawah */
+        bottom: 0; /* posisikan di bawah */
+        left: 0;
+        width: 100%; /* full lebar layar */
+        font-size: 14px;
+    }
+
+    /* --- New Section: Gallery & Contact --- */
+    .gallery-contact {
+        background-color: #f7f9fc;
+        color: #333;
+    }
+
+    .gallery-contact h2,
+    .gallery-contact p {
+        margin-bottom: 2rem;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .gallery-item {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 200px; /* Sesuaikan tinggi foto */
+        object-fit: cover;
+        display: block;
+    }
+
+    /* --- Contact Card Styling --- */
+    .contact-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .contact-card h3 {
+        color: #054707;
+        margin-bottom: 1rem;
+    }
+
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #25d366; /* WhatsApp Green */
+        color: white;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        color: white;
+    }
+
+    .contact-link i {
+        font-size: 1.2rem;
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 768px) {
+        .contact-links {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}

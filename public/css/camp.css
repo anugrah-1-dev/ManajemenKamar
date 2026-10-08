@@ -1,0 +1,134 @@
+
+            /* Base styles for all devices */
+            .program-card {
+                transition: transform 0.3s ease;
+            }
+
+            .program-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .duration-option {
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .duration-option:hover {
+                background-color: #f8f9fa;
+            }
+
+            .duration-option input[type="radio"]:checked+label {
+                background-color: #e9f7fe;
+                border-color: #0d6efd;
+            }
+
+            /* Mobile-specific styles */
+            @media (max-width: 767.98px) {
+                .display-4 {
+                    font-size: 1.8rem !important;
+                    line-height: 1.3;
+                }
+
+                .lead {
+                    font-size: 1rem !important;
+                }
+
+                .card-header h3 {
+                    font-size: 1.25rem;
+                }
+
+                .btn-lg {
+                    padding: 0.5rem 1rem !important;
+                    font-size: 1rem !important;
+                }
+
+                .form-control-lg,
+                .form-select-lg {
+                    font-size: 1rem !important;
+                    padding: 0.5rem 1rem !important;
+                }
+
+                .table-responsive-mobile {
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .table-responsive-mobile table {
+                    width: 100%;
+                    min-width: 500px;
+                }
+
+                .card-img-top {
+                    height: 250px !important;
+                }
+
+                .duration-options-container {
+                    overflow-x: auto;
+                    white-space: nowrap;
+                    display: flex;
+                    padding-bottom: 10px;
+                }
+
+                .duration-option {
+                    min-width: 120px;
+                    display: inline-block;
+                    margin-right: 10px;
+                    white-space: normal;
+                }
+            }
+
+            /* Desktop-specific styles */
+            @media (min-width: 768px) {
+                .card-img-top {
+                    height: 400px !important;
+                }
+
+                .duration-option {
+                    height: 100%;
+                }
+            }
+
+            /* Common styles for both */
+            .facility-item {
+                padding: 0.5rem 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .facility-item:last-child {
+                border-bottom: none;
+            }
+
+            .border-primary-custom {
+                border-color: #0d6efd !important;
+            }
+
+            .duration-options-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .duration-option {
+                flex: 0 0 auto;
+                width: 150px;
+            }
+
+            .duration-option label {
+                cursor: pointer;
+                height: 100%;
+                border: 2px solid #dee2e6;
+                transition: all 0.2s ease;
+            }
+
+            .duration-option input:checked+label {
+                background-color: #0d6efd;
+                color: #fff;
+                border-color: #0d6efd;
+            }
+
+            .duration-option label:hover {
+                background-color: #f0f8ff;
+                border-color: #0d6efd;
+            }
+
